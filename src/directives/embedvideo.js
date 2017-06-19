@@ -66,6 +66,11 @@ angular.module('videosharing-embed').directive('embedVideo', [ '$filter' , 'Regi
                 var videoID = parameters[2],
                     time = url.match(player.timeRegExp),
                     config = player.config;
+              
+                if($attrs.videoSettings){
+                    var settings = JSON.parse($attrs.videoSettings);
+                    for (var attrname in settings) { $attrs[attrname] = settings[attrname]; }
+                }
 
                 //overwrite playback options
                 angular.forEach($filter('whitelist')($attrs, player.whitelist), function (value, key) {
